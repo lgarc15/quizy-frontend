@@ -1,0 +1,44 @@
+#startQuiz {
+    flex-basis: 65%;
+    text-align: center;
+    border: 1px solid red;
+}
+
+#welcomeMessage {
+    font-size: 3em;
+}
+
+#quizSettingsForm {
+    display: flex;
+    flex-direction: column;
+    font-weight: 700;
+    text-align: left;
+}
+
+#quizSettingsForm label {
+    margin-bottom: 2px;
+}
+
+#quizSettingsForm input, select {
+    height: 45px;
+    margin-bottom: 15px;
+    margin-left: 0;
+    margin-right: 0;
+    font-size: 1.1em;
+    border-radius: 5px;
+    border: 1px solid grey;
+    /* padding: 10px 0; */
+}
+
+#quizSettingsForm input {
+    padding-left: 10px;
+}
+
+#quizSettingsForm select {
+    line-height: 45px;
+    border: none;
+}
+
+#quizSettingsFormSubmit {
+    cursor: pointer;
+}
