@@ -7,6 +7,7 @@ import "../App.css";
 import "../stylesheets/Content.css";
 import StartQuiz from "./StartQuiz";
 import Question from "./Question";
+import Results from "./Results";
 
 // TODO: HAVE SMALL LITTLE LINKS TO PREVIOUSLY ANSWERED QUESTIONS AT THE BOTTOM.
 
@@ -50,14 +51,23 @@ function findHighestUnAnsweredQuestion(questionsAnswered) {
   // Use this to feed the next question.
 }
 
+function tallyCorrectAnswers(questions) {
+  let correct = 0;
+  questions.forEach((question) => {
+    if (question.user_answer_data.user_correct) {
+      correct++;
+    }
+  });
+  return correct;
+}
+
 class Content extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       questions: null,
-      // questionsToAsk: null, // Array[Object]
-      // questionsAnswered: null, // Array[Object]
       currentQuestion: null,
+      results: null,
     };
 
     this.handleStartQuiz = this.handleStartQuiz.bind(this);
@@ -86,8 +96,8 @@ class Content extends React.Component {
 
         // Save the state of the quiz game.
         this.setState({
-          "questions": questionsData,
-          "currentQuestion": firstQuestion,
+          questions: questionsData,
+          currentQuestion: firstQuestion,
         });
 
         // Create an array based on the possible answers for the question.
@@ -133,8 +143,6 @@ class Content extends React.Component {
 
   // Function to allow the child to notify when to move on to the next question.
   moveToNextQuestion(questions, questionAnsweredId) {
-    console.log('moveToNextQuestion');
-    console.log(questions);
     const questionAnswered = findQuestionById(questions, questionAnsweredId);
     const nextQuestion = findQuestionById(questions, questionAnswered.id + 1);
 
@@ -143,8 +151,8 @@ class Content extends React.Component {
       const nextQuestionAnswers = createAnswersArray(nextQuestion);
       // Set the new quiz state.
       this.setState({
-        "questions": questions,
-        "currentQuestion": nextQuestion,
+        questions: questions,
+        currentQuestion: nextQuestion,
       });
       this.props.history.push({
         pathname: `/question/${nextQuestion.id}`,
@@ -154,12 +162,26 @@ class Content extends React.Component {
             question: nextQuestion.question,
           },
           answers: nextQuestionAnswers,
-          totalNumQuestions: questions.length
+          totalNumQuestions: questions.length,
         },
       });
     } else {
+      // TODO: ENSURE ALL THE QUESTIONS WERE ANSWERED.
+        // IF NOT, THEN REDIRECT THE USER TO THE LOWEST QUESTION THEY HAVE NOT ANSWERED.
+        // ELSE, DISPLAY THE RESULTS PAGE.
+
       // Finish the quiz, display the results.
-      alert('QUIZ DONE!');
+      const numCorrect = tallyCorrectAnswers(questions);
+      this.setState({
+        results: {
+          numCorrect: numCorrect,
+          numTotalQuestions: questions.length,
+        },
+      });
+      console.log(questions);
+      this.props.history.push({
+        pathname: "/results",
+      });
     }
   }
 
@@ -168,21 +190,21 @@ class Content extends React.Component {
   }
 
   render() {
+    const { results } = this.state;
     return (
       <div className="bg-cl-1" id="content">
         <Switch>
           <Route exact path="/">
-            <StartQuiz
-              questionsToAsk={this.state.questionsToAsk}
-              questionsAnswered={this.state.questionsAnswered}
-              currentQuestion={this.state.currentQuestion}
-              handleStartQuiz={this.handleStartQuiz}
-              startQuiz={this.startQuiz}
-            />
+            <StartQuiz handleStartQuiz={this.handleStartQuiz} />
           </Route>
           <Route path="/question/:id">
             <Question handleUserAnswer={this.handleUserAnswer} />
           </Route>
+          {results && (
+            <Route path="/results">
+              <Results quizResults={results} />
+            </Route>
+          )}
           <Route>Route not found</Route>
           {/* <Route path="/"></Route> */}
         </Switch>
