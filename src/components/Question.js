@@ -4,52 +4,47 @@ import { withRouter } from "react-router-dom";
 import "../App.css";
 import "../stylesheets/Question.css";
 
-// Helper function used to sort an array containing possible answers.
-function shuffleAnswers(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-}
 
 class Question extends React.Component {
   constructor(props) {
     super(props);
-    // Get the necessary information from props to display the question.
-    const { questionMeta, totalNumQuestions } = this.props.location.state;
-    // Construct an Array containing the possible answers, and shuffle.
-    let answers = [{ answer: questionMeta["correct_answer"] }];
-    questionMeta["incorrect_answers"].map((question) =>
-      answers.push({ answer: question })
-    );
-    shuffleAnswers(answers);
-
-    this.state = {
-      questionMeta: questionMeta,
-      totalNumQuestions: totalNumQuestions,
-      answers: answers,
-      disabled: false,
-    };
+    // const { questionMeta, answers, totalNumQuestions } = this.props.location.state;
+    // TODO: Check if the questionMeta.id is in accordance with Content.js. Have it call a function linked to the parent.
+      // If it is not, then have content.js redirect to the appropriate page.
+        // If the quiz answer the user types in is valid (i.e. they have answered the question before then redirect to that page)
+        // If the quiz answer the user types in is invalid (i.e. It's a number higher than max questions or they haven't answered it, then redirect to the last question they answered)
+      // If it is, do nothing.
+    // In this upper function, ensure that the user could not answer again. That the buttons are disabled if it was answered wrong.
 
     this.handleQuestionAnswer = this.handleQuestionAnswer.bind(this);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.location.state.questionMeta.id !== this.props.location.state.questionMeta.id) {
+      // // Display the next question by updating the state.
+      // const { questionMeta, answers, totalNumQuestions } = this.props.location.state;
+      // this.setState({
+      //   questionMeta: questionMeta,
+      //   answers: answers,
+      //   totalNumQuestions: totalNumQuestions,
+      //   disabled: false
+      // });
+    }
   }
 
   // Button handler used when a user answers a question.
   handleQuestionAnswer(e) {
     e.preventDefault();
-    const answer = e.target.value;
-    const { questionMeta } = this.state;
-    const [isCorrect, correctAnswer] = this.props.handleUserAnswer(answer, questionMeta.id);
 
-    // Display the according animation to say the question is correct. And then, move on to the next question.
-    console.log("The answer for this question is: " + isCorrect + ". Correct Answer = " + correctAnswer);
-    this.setState({disabled: true});
-    
-    // Create an animation to move to next questions.
+    const answer = e.target.value;
+    const { questionMeta } = this.props.location.state;
+
+    this.props.handleUserAnswer(answer, questionMeta.id);
   }
 
   render() {
-    const { questionMeta, totalNumQuestions, answers, disabled } = this.state;
+    // const { questionMeta, totalNumQuestions, answers, disabled } = this.state;
+    const { questionMeta, totalNumQuestions, answers, disabled } = this.props.location.state;
 
     return (
       <div id="quizContainer">

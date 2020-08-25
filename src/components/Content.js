@@ -8,17 +8,55 @@ import "../stylesheets/Content.css";
 import StartQuiz from "./StartQuiz";
 import Question from "./Question";
 
+// TODO: HAVE SMALL LITTLE LINKS TO PREVIOUSLY ANSWERED QUESTIONS AT THE BOTTOM.
+
 // Returns the question with the given id.
-const findQuestionIndex = function(questionArray, questionId) {
-  return questionArray.findIndex((question) => question.id === questionId)
+const findQuestionById = function (questionArray, questionId) {
+  return questionArray.find((question) => question.id === questionId);
+};
+
+// Returns the index of the question with the given id.
+const findQuestionIndexById = function (questionArray, questionId) {
+  return questionArray.findIndex((question) => question.id === questionId);
+};
+
+// Helper function used to sort an array containing possible answers.
+function shuffleAnswers(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+// Create an array based on the possible answers for the question.
+function createAnswersArray(question) {
+  let answers = [{ answer: question["correct_answer"] }];
+  question["incorrect_answers"].map((question) =>
+    answers.push({ answer: question })
+  );
+  shuffleAnswers(answers);
+  return answers;
+}
+
+function findHighestAnsweredQuestion(questionsAnswered) {
+  // Find the highest index from the questions answered.
+  // That is the most number of questions the user has answered.
+  // Do not allow the user to go past that.
+}
+
+function findHighestUnAnsweredQuestion(questionsAnswered) {
+  // Find the highest index from the questions not answered.
+  // That is the most number of questions the user has not answered.
+  // Use this to feed the next question.
 }
 
 class Content extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      questionsToAsk: null, // Array[Object]
-      questionsAnswered: null, // Array[Object]
+      questions: null,
+      // questionsToAsk: null, // Array[Object]
+      // questionsAnswered: null, // Array[Object]
       currentQuestion: null,
     };
 
@@ -28,27 +66,11 @@ class Content extends React.Component {
     this.endQuiz = this.endQuiz.bind(this);
   }
 
-  // Function to allow the child to notify when to move on to the next question.
-  moveToNextQuestion() {
-    const { questionsToAsk, currentQuestion } = this.state;
-    // Find the index of the question that was answered.
-    const questionAnsweredIndex = findQuestionIndex(questionsToAsk, currentQuestion.id);
-    // const questionAnsweredIndex = questionsToAsk.findIndex(
-    //   (item) => item.id === currentQuestion.id
-    // );
-    console.log(questionAnsweredIndex);
-
-    // TODO: Attempt to get the next question to answer.
-    // If there is none, then go to the final page.
-    // If there is a question, set the state and go to the next question.
-
-    // Since the question was answered, remove it from `questionsToAsk` and add it to `questionsAnswered`.
-    // this.setState({
-    //   questionsAnswered: questionsToAsk.splice(questionAnsweredIndex, 1)
-    // });
-  }
-
   handleStartQuiz(queryStringsObj) {
+    // TODO: Insert check to see if there is a quiz already active.
+    // If there is, then prompt the user there is an active quiz and if the would like to continue.
+    // If they do, then continue where they left off.
+    // Else, let them start a new quiz.
     axios
       .get(
         `https://opentdb.com/api.php?${querystring.stringify(queryStringsObj)}`
@@ -57,25 +79,28 @@ class Content extends React.Component {
         const questionsData = response.data.results;
 
         // Attach and ID to the questions (ID starting with 1).
-        questionsData.map((item, index) => (
-          item["id"] = index + 1
-        ));
+        questionsData.map((item, index) => (item["id"] = index + 1));
 
         // Find the first question's index.
-        const firstQuestionIndex = findQuestionIndex(questionsData, 1);
-        const currentQuestion = questionsData[firstQuestionIndex];
-        
+        const firstQuestion = findQuestionById(questionsData, 1);
+
         // Save the state of the quiz game.
         this.setState({
-          questionsToAsk: questionsData,
-          questionsAnswered: [],
-          currentQuestion: currentQuestion,
+          "questions": questionsData,
+          "currentQuestion": firstQuestion,
         });
 
+        // Create an array based on the possible answers for the question.
+        const answers = createAnswersArray(firstQuestion);
+
         this.props.history.push({
-          pathname: `question/${currentQuestion.id}`,
+          pathname: `/question/${firstQuestion.id}`,
           state: {
-            questionMeta: currentQuestion,
+            questionMeta: {
+              id: firstQuestion.id,
+              question: firstQuestion.question,
+            },
+            answers: answers,
             totalNumQuestions: questionsData.length,
           },
         });
@@ -90,20 +115,52 @@ class Content extends React.Component {
   }
 
   handleUserAnswer(userAnswer, questionId) {
-    const { questionsToAsk } = this.state;
-    const questionToAnswer = questionsToAsk.filter(function (question) {
-      return question.id === questionId;
-    })[0];
+    const { questions } = this.state;
+    const questionAnsweredIndex = findQuestionIndexById(questions, questionId);
+    const questionAnswered = questions[questionAnsweredIndex];
 
-    // The response must be handled in Question component
-    // (i.e. animation to display whether the answer was correct or not).
-    setTimeout(this.moveToNextQuestion, 3000);
+    // Record the user's answer and whether it was correct.
+    questionAnswered.user_answer_data = {
+      user_correct: questionAnswered.correct_answer === userAnswer,
+      user_answer: userAnswer,
+    };
+    // Update the question answered.
+    questions[questionAnsweredIndex] = questionAnswered;
 
-    // Send whether the answer is correct and also the correct answer, in case it is wrong.
-    return [
-      questionToAnswer.correct_answer === userAnswer,
-      questionToAnswer.correct_answer,
-    ];
+    // Handle moving on to the next question.
+    this.moveToNextQuestion(questions, questionId);
+  }
+
+  // Function to allow the child to notify when to move on to the next question.
+  moveToNextQuestion(questions, questionAnsweredId) {
+    console.log('moveToNextQuestion');
+    console.log(questions);
+    const questionAnswered = findQuestionById(questions, questionAnsweredId);
+    const nextQuestion = findQuestionById(questions, questionAnswered.id + 1);
+
+    if (nextQuestion) {
+      // Get the possible answers for the next question.
+      const nextQuestionAnswers = createAnswersArray(nextQuestion);
+      // Set the new quiz state.
+      this.setState({
+        "questions": questions,
+        "currentQuestion": nextQuestion,
+      });
+      this.props.history.push({
+        pathname: `/question/${nextQuestion.id}`,
+        state: {
+          questionMeta: {
+            id: nextQuestion.id,
+            question: nextQuestion.question,
+          },
+          answers: nextQuestionAnswers,
+          totalNumQuestions: questions.length
+        },
+      });
+    } else {
+      // Finish the quiz, display the results.
+      alert('QUIZ DONE!');
+    }
   }
 
   endQuiz() {
