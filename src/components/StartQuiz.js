@@ -1,6 +1,4 @@
 import React from "react";
-import axios from "axios";
-import querystring from "querystring";
 import { withRouter } from "react-router-dom";
 
 import "../App.css";
@@ -52,41 +50,19 @@ class StartQuiz extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    let queryStrings = { amount: this.state.amount };
+    let queryStringsObj = { amount: this.state.amount };
 
     if (this.state.category !== "any") {
-      queryStrings["category"] = this.state.category;
+        queryStringsObj["category"] = this.state.category;
     }
     if (this.state.difficulty !== "any") {
-      queryStrings["difficulty"] = this.state.difficulty;
+        queryStringsObj["difficulty"] = this.state.difficulty;
     }
     if (this.state.type !== "any") {
-      queryStrings["type"] = this.state.type;
+        queryStringsObj["type"] = this.state.type;
     }
 
-    axios
-      .get(`https://opentdb.com/api.php?${querystring.stringify(queryStrings)}`)
-      .then((response) => {
-        // Send the information to start the quiz.
-        this.props.startQuiz(response.data.results);
-        // Get the quiz metadata, now that the quiz has been started.
-        const { questionsToAsk, currentQuestion } = this.props;
-
-        this.props.history.push({
-          pathname: `question/${currentQuestion.id}`,
-          state: {
-            questionMeta: currentQuestion,
-            totalNumQuestions: questionsToAsk.length,
-          },
-        });
-      })
-      .catch((error) => {
-        // error
-        console.log(error);
-      })
-      .then(() => {
-        // always executed
-      });
+    this.props.handleStartQuiz(queryStringsObj);
   }
 
   render() {

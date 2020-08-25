@@ -44,8 +44,8 @@ class Question extends React.Component {
     // Display the according animation to say the question is correct. And then, move on to the next question.
     console.log("The answer for this question is: " + isCorrect + ". Correct Answer = " + correctAnswer);
     this.setState({disabled: true});
-    // setDisabled(true); // Disable the button since the question was answered.
-    // moveToNextQuestion(questionMeta.id);
+    
+    // Create an animation to move to next questions.
   }
 
   render() {
