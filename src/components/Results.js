@@ -39,7 +39,14 @@ export default class Results extends React.Component {
         <div id="result-info-container">
           <div id="result-info">
             {questions.map((question, index) => (
-              <Accordion className={`result-item ${question.user_answer_data.user_correct ? "result_item_correct" : "result_item_incorrect"}`} key={index}>
+              <Accordion
+                className={`result-item ${
+                  question.user_answer_data.user_correct
+                    ? "result_item_correct"
+                    : "result_item_incorrect"
+                }`}
+                key={index}
+              >
                 <Card>
                   <Accordion.Toggle as={Card.Header} eventKey={question.id}>
                     <div className="result-item-overview">
@@ -69,8 +76,9 @@ export default class Results extends React.Component {
                       <p>
                         Your Answer: {question.user_answer_data.user_answer}
                       </p>
-                      {/* <p>{question.correct_answer}</p> */}
-                      {/* <p>{question.user_answer_data.user_correct}</p> */}
+                      {!question.user_answer_data.user_correct && (
+                        <p>Correct Answer: {question.correct_answer}</p>
+                      )}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
