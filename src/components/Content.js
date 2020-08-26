@@ -8,6 +8,7 @@ import "../stylesheets/Content.css";
 import StartQuiz from "./StartQuiz";
 import Question from "./Question";
 import Results from "./Results";
+import { Button } from "react-bootstrap";
 
 // TODO: HAVE SMALL LITTLE LINKS TO PREVIOUSLY ANSWERED QUESTIONS AT THE BOTTOM.
 
@@ -178,7 +179,6 @@ class Content extends React.Component {
           numTotalQuestions: questions.length,
         },
       });
-      console.log(questions);
       this.props.history.push({
         pathname: "/results",
       });
@@ -190,7 +190,7 @@ class Content extends React.Component {
   }
 
   render() {
-    const { results } = this.state;
+    const { results, questions } = this.state;
     return (
       <div className="bg-cl-1" id="content">
         <Switch>
@@ -202,7 +202,7 @@ class Content extends React.Component {
           </Route>
           {results && (
             <Route path="/results">
-              <Results quizResults={results} />
+              <Results quizResults={results} questions={questions} />
             </Route>
           )}
           <Route>Route not found</Route>
