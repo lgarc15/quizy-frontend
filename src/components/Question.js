@@ -59,7 +59,7 @@ class Question extends React.Component {
                 type={"button"}
                 name={`answer_${index}`}
                 value={answerMeta.answer}
-                className={"quizAnswer"}
+                className={"quizAnswerBtn"}
                 key={index}
                 onClick={this.handleQuestionAnswer}
                 disabled={disabled}

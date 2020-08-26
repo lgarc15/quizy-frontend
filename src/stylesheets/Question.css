@@ -28,14 +28,27 @@
     justify-content: space-between;
 }
 
-.quizAnswer {
+.quizAnswerBtn {
     flex: 0 48%;
-    margin-bottom: 20px;
-    padding: 25px 5px;
-    text-align: center;
+    /* transition-duration: 0.4s; */
     background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(83, 184, 225);
+    padding: 25px 5px;
     border-radius: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: rgb(83, 184, 225);
     font-weight: 700;
     font-size: 1em;
     cursor: pointer;
+}
+.quizAnswerBtn:hover {
+    /* background-color: rgb(83, 184, 225); */
+    /* color: rgb(255, 255, 255); */
+}
+
+.quizAnswerBtn:active {
+    /* TODO: Add a ripple effect. */
+    box-shadow: 4px 4px 5px grey;
+    transform: translateY(1px);
 }
