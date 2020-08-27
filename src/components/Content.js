@@ -153,6 +153,7 @@ class Content extends React.Component {
   }
 
   handleUserAnswer(userAnswer, questionId) {
+    const that = this;
     const { questions } = this.state;
     const questionAnsweredIndex = findQuestionIndexById(questions, questionId);
     const questionAnswered = questions[questionAnsweredIndex];
@@ -165,8 +166,12 @@ class Content extends React.Component {
     // Update the question answered.
     questions[questionAnsweredIndex] = questionAnswered;
 
-    // Handle moving on to the next question.
-    this.moveToNextQuestion(questions, questionId);
+    setTimeout(function () {
+      // Handle moving on to the next question.
+      that.moveToNextQuestion(questions, questionId);
+    }, 2000);
+
+    return questionAnswered.user_answer_data;
   }
 
   // Function to allow the child to notify when to move on to the next question.
