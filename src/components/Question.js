@@ -5,13 +5,14 @@ import he from "he";
 
 import "../App.css";
 import "../stylesheets/Question.css";
+import { CSSTransition } from "react-transition-group";
 
 class Question extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       showModal: false,
-      answerBtnDisabled: false
+      answerBtnDisabled: false,
     };
 
     this.showModal = this.showModal.bind(this);
@@ -20,7 +21,7 @@ class Question extends React.Component {
   }
 
   componentDidMount() {
-    console.log("componentDidMount");
+    console.log("componentDidMount: false");
     const { history } = this.props;
     const that = this;
     window.addEventListener("popstate", function (e) {
@@ -38,8 +39,9 @@ class Question extends React.Component {
       prevProps.location.state.questionMeta.id !==
       this.props.location.state.questionMeta.id
     ) {
+      console.log('componentDidUpdate: false');
       this.setState({
-        answerBtnDisabled: false
+        answerBtnDisabled: false,
       });
     }
   }
@@ -60,16 +62,17 @@ class Question extends React.Component {
   handleQuestionAnswer(e) {
     e.preventDefault();
     this.setState({
-      answerBtnDisabled: true
+      answerBtnDisabled: true,
     });
+    console.log('handleQuestionAnswer: true');
 
     const answer = e.target.value;
     const { questionMeta } = this.props.location.state;
 
-    const { user_correct, user_answer } = this.props.handleUserAnswer(answer, questionMeta.id);
-
-    console.log(user_correct);
-    console.log(user_answer);
+    const { user_correct, user_answer } = this.props.handleUserAnswer(
+      answer,
+      questionMeta.id
+    );
   }
 
   render() {
@@ -77,29 +80,58 @@ class Question extends React.Component {
     const {
       questionMeta,
       totalNumQuestions,
-      answers
+      answers,
     } = this.props.location.state;
 
     return (
       <div className="main-content" id="quizContainer">
-        <div id="quizProgress">
-          Question {questionMeta.id}/{totalNumQuestions}
+        <div id="quizProgress" className="fadeIn">
+          <CSSTransition
+            in={answerBtnDisabled}
+            timeout={2000}
+            classNames="fadeIn"
+          >
+            <span>
+              Question {questionMeta.id}/{totalNumQuestions}
+            </span>
+          </CSSTransition>
         </div>
         <div id="quizMeta">
-          <h1 id="quizQuestion">{he.decode(questionMeta.question)}</h1>
+          <div id="quizQuestion">
+            <CSSTransition
+              in={answerBtnDisabled}
+              timeout={2000}
+              classNames="fadeIn"
+            >
+              <h1>{he.decode(questionMeta.question)}</h1>
+            </CSSTransition>
+          </div>
           <form id="quizAnswers" onSubmit={null}>
             {answers.map((answerMeta, index) => (
-              <button
-                type={"button"}
-                name={`answer_${index}`}
-                value={answerMeta.answer}
-                className={"quizAnswerBtn"}
+              <CSSTransition
+                in={answerBtnDisabled}
+                timeout={500}
                 key={index}
-                onClick={this.handleQuestionAnswer}
-                disabled={answerBtnDisabled}
+                classNames="quizAnswerBtn"
               >
-                {he.decode(answerMeta.answer)}
-              </button>
+                <button
+                  type={"button"}
+                  name={`answer_${index}`}
+                  value={answerMeta.answer}
+                  className={"quizAnswerBtn"}
+                  key={index}
+                  onClick={this.handleQuestionAnswer}
+                  disabled={answerBtnDisabled}
+                >
+                  <CSSTransition
+                    in={answerBtnDisabled}
+                    timeout={2000}
+                    classNames="fadeIn"
+                  >
+                    <span>{he.decode(answerMeta.answer)}</span>
+                  </CSSTransition>
+                </button>
+              </CSSTransition>
             ))}
           </form>
         </div>

@@ -50,6 +50,43 @@
     transform: translateY(1px);
 }
 
+.quizAnswerBtn-enter {
+    /* border: red; */
+}
+
+.quizAnswerBtn-enter-active {
+    /* border: 1px solid blue; */
+    /* transition: border 100ms; */
+}
+
+.quizAnswerBtn-enter-done {
+    /* border: 1px solid red; */
+    /* transition: border 100ms; */
+}
+
+.fadeIn-enter {
+    opacity: 1;
+}
+
+.fadeIn-enter-active {
+    opacity: 0;
+    transition: opacity 1000ms;
+}
+
+.fadeIn-exit {
+    opacity: 1;
+    /* border: 5px solid blue; */
+}
+
+.fadeIn-exit-active {
+    opacity: 1;
+    transition: opacity 1000ms;
+}
+
+.fadeIn-exit-done {
+    opacity: 1;
+}
+
 /* Extra small devices (portrait phones, less than 576px) */
 @media(max-width: 575.98px) {
 
