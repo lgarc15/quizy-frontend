@@ -70,7 +70,7 @@
 
 .fadeIn-enter-active {
     opacity: 0;
-    transition: opacity 750ms;
+    transition: opacity 500ms;
 }
 
 .fadeIn-exit {
@@ -79,7 +79,7 @@
 
 .fadeIn-exit-active {
     opacity: 1;
-    transition: opacity 750ms;
+    transition: opacity 500ms;
 }
 
 /* Extra small devices (portrait phones, less than 576px) */

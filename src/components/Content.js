@@ -169,7 +169,7 @@ class Content extends React.Component {
     setTimeout(function () {
       // Handle moving on to the next question.
       that.moveToNextQuestion(questions, questionId);
-    }, 1500);
+    }, 1000);
 
     return questionAnswered.user_answer_data;
   }
@@ -261,7 +261,6 @@ class Content extends React.Component {
           <Route>
             <Redirect path="/"></Redirect>
           </Route>
-          {/* <Route path="/"></Route> */}
         </Switch>
       </div>
     );
