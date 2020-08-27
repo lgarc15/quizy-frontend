@@ -20,6 +20,9 @@
 
 #quizSettingsForm input,
 #quizSettingsForm select {
+    /* border: 1px solid red !important; */
+    /* background-color: black; */
+    border: 1px solid rgb(170, 170, 170) !important;
     flex-basis: 0 98%;
     height: 45px;
     /* Make sure margin-bottom gets targetted for the child. */
@@ -38,9 +41,16 @@
 }
 
 #quizSettingsFormSubmit {
+    /* border: 1px solid rgb(83, 184, 225); */
+    border: 1px solid rgb(170, 170, 170);
+    color: rgb(255, 255, 255);
     cursor: pointer;
 }
 
+#quizSettingsFormSubmit:active {
+    box-shadow: 4px 4px 5px grey;
+    transform: translateY(1px);
+}
 
 /* Extra small devices (portrait phones, less than 576px) */
 @media(max-width: 575.98px) {}
@@ -65,16 +75,7 @@
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media(min-width: 1200px) {
-    #quizSettingsForm input,
-    #quizSettingsForm select {
-        /* height: 45; */
-        /* font-size: 1.5em; */
-        /* border-radius: 5px; */
-    }
 
-    #quizSettingsForm select {
-        /* line-height: 60px; */
-    }
 }
 
 /* // Extra large devices (large desktops) */

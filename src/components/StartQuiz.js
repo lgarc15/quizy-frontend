@@ -68,7 +68,7 @@ class StartQuiz extends React.Component {
   render() {
     return (
       <div className="main-content" id="startQuiz">
-        <h1 id="welcomeMessage">Welcome to Quizy!</h1>
+        <h1 className="text-cl-2" id="welcomeMessage">Welcome to Quizy!</h1>
         <p>
           Think you know a lot about a wide variety of topics? Then Quizy is the
           right place for you. You will be tested on whatever subjects you want,
@@ -163,6 +163,7 @@ class StartQuiz extends React.Component {
           <input
             type="submit"
             value="Start Quiz!"
+            className="bg-cl-2"
             id="quizSettingsFormSubmit"
           />
         </form>
