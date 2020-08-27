@@ -1,7 +1,6 @@
 #startQuiz {
-    flex-basis: 65%;
+    /* flex-basis: 65%; */
     text-align: center;
-    border: 1px solid red;
 }
 
 #welcomeMessage {
@@ -19,19 +18,16 @@
     margin-bottom: 2px;
 }
 
-#quizSettingsForm input, select {
+#quizSettingsForm input, #quizSettingsForm select {
     height: 45px;
+    /* Make sure margin-bottom gets targetted for the child. */
     margin-bottom: 15px;
     margin-left: 0;
     margin-right: 0;
     font-size: 1.1em;
     border-radius: 5px;
-    border: 1px solid grey;
+    /* border: 1px solid grey; */
     /* padding: 10px 0; */
-}
-
-#quizSettingsForm input {
-    padding-left: 10px;
 }
 
 #quizSettingsForm select {

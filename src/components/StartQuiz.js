@@ -67,7 +67,7 @@ class StartQuiz extends React.Component {
 
   render() {
     return (
-      <div id="startQuiz">
+      <div className="main-content" id="startQuiz">
         <h1 id="welcomeMessage">Welcome to Quizy!</h1>
         <p>
           Think you know a lot about a wide variety of topics? Then Quizy is the

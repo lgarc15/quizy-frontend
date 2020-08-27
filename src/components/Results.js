@@ -31,7 +31,7 @@ export default class Results extends React.Component {
     console.log(expanded);
 
     return (
-      <div id="result">
+      <div className="main-content" id="result">
         <h1>
           Quiz Results: {quizResults.numCorrect} /{" "}
           {quizResults.numTotalQuestions}

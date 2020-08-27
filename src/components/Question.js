@@ -47,7 +47,7 @@ class Question extends React.Component {
     const { questionMeta, totalNumQuestions, answers, disabled } = this.props.location.state;
 
     return (
-      <div id="quizContainer">
+      <div className="main-content" id="quizContainer">
         <div id="quizProgress">
           Question {questionMeta.id}/{totalNumQuestions}
         </div>
