@@ -73,6 +73,7 @@ class Content extends React.Component {
     this.handleStartQuiz = this.handleStartQuiz.bind(this);
     this.handleUserAnswer = this.handleUserAnswer.bind(this);
     this.moveToNextQuestion = this.moveToNextQuestion.bind(this);
+    this.resetQuiz = this.resetQuiz.bind(this);
     this.endQuiz = this.endQuiz.bind(this);
   }
 
@@ -184,6 +185,19 @@ class Content extends React.Component {
     }
   }
 
+  resetQuiz() {
+    const { history } = this.props;
+
+    this.setState({
+      questions: null,
+      currentQuestion: null,
+      results: null,
+    });
+    history.push({
+      pathname: '/'
+    });
+  }
+
   endQuiz() {
     console.log("Content: endQuiz");
   }
@@ -194,14 +208,14 @@ class Content extends React.Component {
       <div className="bg-cl-1" id="content">
         <Switch>
           <Route exact path="/">
-            <StartQuiz handleStartQuiz={this.handleStartQuiz} />
+            <StartQuiz handleStartQuiz={this.handleStartQuiz} {...this.props} />
           </Route>
           <Route path="/question/:id">
-            <Question handleUserAnswer={this.handleUserAnswer} />
+            <Question handleUserAnswer={this.handleUserAnswer}  resetQuiz={this.resetQuiz} {...this.props} />
           </Route>
           {results && (
             <Route path="/results">
-              <Results quizResults={results} questions={questions} />
+              <Results quizResults={results} questions={questions} {...this.props} />
             </Route>
           )}
           <Route>Route not found</Route>

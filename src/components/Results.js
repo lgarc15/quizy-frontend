@@ -29,7 +29,6 @@ export default class Results extends React.Component {
   render() {
     const { quizResults, questions } = this.props;
     const { expanded } = this.state;
-    console.log(expanded);
 
     return (
       <div className="main-content" id="result">

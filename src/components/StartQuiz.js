@@ -21,7 +21,6 @@ class StartQuiz extends React.Component {
   }
 
   componentDidMount() {
-    console.log("componentDidMount");
     // Check to see if there are any active quizzes?
     // If so, then have a modal show that there is an active quiz.
     // And, if they would like to continue it. Also, mention that
