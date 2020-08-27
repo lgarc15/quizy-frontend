@@ -1,7 +1,8 @@
 import React from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import he from "he";
 
 import { Accordion, Card } from "react-bootstrap";
 
@@ -51,7 +52,7 @@ export default class Results extends React.Component {
                   <Accordion.Toggle as={Card.Header} eventKey={question.id}>
                     <div className="result-item-overview">
                       <p className="result-question">
-                        {question.id}. {question.question}{" "}
+                        {question.id}. {he.decode(question.question)}{" "}
                       </p>
                       <div
                         className="result-expand-btn-container"

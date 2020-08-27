@@ -31,8 +31,8 @@
     margin-right: 0;
     font-size: 1.1em;
     border-radius: 5px;
+    padding-left: 10px;
     /* border: 1px solid grey; */
-    /* padding: 10px 0; */
 }
 
 #quizSettingsForm select {

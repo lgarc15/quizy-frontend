@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import he from "he";
 
 import "../App.css";
 import "../stylesheets/Question.css";
@@ -52,7 +53,7 @@ class Question extends React.Component {
           Question {questionMeta.id}/{totalNumQuestions}
         </div>
         <div id="quizMeta">
-          <h1 id="quizQuestion">{questionMeta.question}</h1>
+          <h1 id="quizQuestion">{he.decode(questionMeta.question)}</h1>
           <form id="quizAnswers" onSubmit={null}>
             {answers.map((answerMeta, index) => (
               <button

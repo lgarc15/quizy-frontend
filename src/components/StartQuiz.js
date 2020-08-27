@@ -77,15 +77,6 @@ class StartQuiz extends React.Component {
           your progress skyrocket!
         </p>
         <form id="quizSettingsForm" onSubmit={this.handleSubmit}>
-          <label htmlFor="username">Name:</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            onChange={this.handleInputChange}
-            required
-          />
-
           <label htmlFor="questionAmount">Question Amount (Default 10):</label>
           <input
             type="text"
