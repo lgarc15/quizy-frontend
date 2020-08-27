@@ -65,7 +65,7 @@ class Question extends React.Component {
                 onClick={this.handleQuestionAnswer}
                 disabled={disabled}
               >
-                {answerMeta.answer}
+                {he.decode(answerMeta.answer)}
               </button>
             ))}
           </form>
