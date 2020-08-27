@@ -1,15 +1,18 @@
-html {
-    overflow: hidden;
+html, body {
     height: 100%;
+    background-color: rgb(238, 186, 91) !important;
 }
-body {
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(238, 186, 91);
+
+html {
+    /* height: 100%; */
+    /* width: 100%; */
+    /* overflow: hidden; */
 }
 
 body {
     margin: 0;
+    /* height: 100%; */
+    /* overflow: auto; */
     font-family: 'Trebuchet MS', 'Tahoma', 'Arial';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
