@@ -7,6 +7,21 @@
     /* overflow: scroll; */
 }
 
+#result-header {
+    /* text-align: center; */
+}
+
+#result-summary {
+    border: 1px solid red;
+    display: flex;
+    justify-content: space-between;
+}
+
+#result-summary > div {
+    border: 1px solid green;
+    flex-basis: 33%;
+}
+
 #result-info-container {
     font-weight: 700;
 }
