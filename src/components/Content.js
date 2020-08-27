@@ -83,7 +83,6 @@ class Content extends React.Component {
     // If there is, then prompt the user there is an active quiz and if the would like to continue.
     // If they do, then continue where they left off.
     // Else, let them start a new quiz.
-    console.log(dummyData);
     const questionsData = dummyData.results;
     // Attach and ID to the questions (ID starting with 1).
     questionsData.map((item, index) => (item["id"] = index + 1));

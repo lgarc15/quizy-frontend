@@ -21,7 +21,6 @@ class Question extends React.Component {
   }
 
   componentDidMount() {
-    console.log("componentDidMount: false");
     const { history } = this.props;
     const that = this;
     window.addEventListener("popstate", function (e) {
@@ -31,7 +30,6 @@ class Question extends React.Component {
   }
 
   componentWillUnmount() {
-    console.log("componentWillUnmount");
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -39,7 +37,6 @@ class Question extends React.Component {
       prevProps.location.state.questionMeta.id !==
       this.props.location.state.questionMeta.id
     ) {
-      console.log('componentDidUpdate: false');
       this.setState({
         answerBtnDisabled: false,
       });
@@ -64,7 +61,6 @@ class Question extends React.Component {
     this.setState({
       answerBtnDisabled: true,
     });
-    console.log('handleQuestionAnswer: true');
 
     const answer = e.target.value;
     const { questionMeta } = this.props.location.state;
