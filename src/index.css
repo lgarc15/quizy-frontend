@@ -3,12 +3,6 @@ html, body {
     background-color: rgb(238, 186, 91) !important;
 }
 
-html {
-    /* height: 100%; */
-    /* width: 100%; */
-    /* overflow: hidden; */
-}
-
 body {
     margin: 0;
     /* height: 100%; */
