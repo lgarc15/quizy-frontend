@@ -258,7 +258,7 @@ class Content extends React.Component {
             </Route>
           )}
           <Route>
-            <Redirect path="/"></Redirect>
+            <Redirect to="/"></Redirect>
           </Route>
         </Switch>
       </div>

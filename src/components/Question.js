@@ -10,6 +10,14 @@ import { CSSTransition } from "react-transition-group";
 class Question extends React.Component {
   constructor(props) {
     super(props);
+    const { location, history } = this.props;
+    if (!location.state) {
+      console.log("asdfasdfasdf");
+      history.push({
+        pathname: "/",
+      });
+    }
+
     this.state = {
       showModal: false,
       answerBtnDisabled: false,
@@ -29,8 +37,7 @@ class Question extends React.Component {
     });
   }
 
-  componentWillUnmount() {
-  }
+  componentWillUnmount() {}
 
   componentDidUpdate(prevProps, prevState) {
     if (
@@ -72,8 +79,15 @@ class Question extends React.Component {
   }
 
   render() {
+    if(!this.props.location.state) {
+      // State is not persisted after refresh. If this is the case, 
+      // then the user will be redirected to the home page in `constructor`.
+      return (<div></div>);
+    }
+
     const fadeOutInTimeout = 1000;
     const { showModal, answerBtnDisabled } = this.state;
+
     const {
       questionMeta,
       totalNumQuestions,

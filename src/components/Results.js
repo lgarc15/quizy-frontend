@@ -10,25 +10,8 @@ import "../App.css";
 import "../stylesheets/Results.css";
 
 export default class Results extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      expanded: false,
-    };
-
-    this.handleExpandClick = this.handleExpandClick.bind(this);
-  }
-
-  handleExpandClick() {
-    const { expanded } = this.state;
-    this.setState({
-      expanded: !expanded,
-    });
-  }
-
   render() {
     const { quizResults, questions } = this.props;
-    const { expanded } = this.state;
 
     return (
       <div className="main-content" id="result">
