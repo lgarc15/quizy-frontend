@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Route, withRouter } from "react-router-dom";
 import axios from "axios";
 import querystring from "querystring";
+import dummyData from "../dummyData";
 
 import "../App.css";
 import "../stylesheets/Content.css";
@@ -82,47 +83,73 @@ class Content extends React.Component {
     // If there is, then prompt the user there is an active quiz and if the would like to continue.
     // If they do, then continue where they left off.
     // Else, let them start a new quiz.
-    axios
-      .get(
-        `https://opentdb.com/api.php?${querystring.stringify(queryStringsObj)}`
-      )
-      .then((response) => {
-        const questionsData = response.data.results;
+    console.log(dummyData);
+    const questionsData = dummyData.results;
+    // Attach and ID to the questions (ID starting with 1).
+    questionsData.map((item, index) => (item["id"] = index + 1));
+    // Find the first question's index.
+    const firstQuestion = findQuestionById(questionsData, 1);
+    // Save the state of the quiz game.
+    this.setState({
+      questions: questionsData,
+      currentQuestion: firstQuestion,
+    });
 
-        // Attach and ID to the questions (ID starting with 1).
-        questionsData.map((item, index) => (item["id"] = index + 1));
+    // Create an array based on the possible answers for the question.
+    const answers = createAnswersArray(firstQuestion);
 
-        // Find the first question's index.
-        const firstQuestion = findQuestionById(questionsData, 1);
+    this.props.history.push({
+      pathname: `/question/${firstQuestion.id}`,
+      state: {
+        questionMeta: {
+          id: firstQuestion.id,
+          question: firstQuestion.question,
+        },
+        answers: answers,
+        totalNumQuestions: questionsData.length,
+      },
+    });
+    // axios
+    //   .get(
+    //     `https://opentdb.com/api.php?${querystring.stringify(queryStringsObj)}`
+    //   )
+    //   .then((response) => {
+    //     const questionsData = response.data.results;
 
-        // Save the state of the quiz game.
-        this.setState({
-          questions: questionsData,
-          currentQuestion: firstQuestion,
-        });
+    //     // Attach and ID to the questions (ID starting with 1).
+    //     questionsData.map((item, index) => (item["id"] = index + 1));
 
-        // Create an array based on the possible answers for the question.
-        const answers = createAnswersArray(firstQuestion);
+    //     // Find the first question's index.
+    //     const firstQuestion = findQuestionById(questionsData, 1);
 
-        this.props.history.push({
-          pathname: `/question/${firstQuestion.id}`,
-          state: {
-            questionMeta: {
-              id: firstQuestion.id,
-              question: firstQuestion.question,
-            },
-            answers: answers,
-            totalNumQuestions: questionsData.length,
-          },
-        });
-      })
-      .catch((error) => {
-        // error
-        console.log(error);
-      })
-      .then(() => {
-        // always executed
-      });
+    //     // Save the state of the quiz game.
+    //     this.setState({
+    //       questions: questionsData,
+    //       currentQuestion: firstQuestion,
+    //     });
+
+    //     // Create an array based on the possible answers for the question.
+    //     const answers = createAnswersArray(firstQuestion);
+
+    //     this.props.history.push({
+    //       pathname: `/question/${firstQuestion.id}`,
+    //       state: {
+    //         questionMeta: {
+    //           id: firstQuestion.id,
+    //           question: firstQuestion.question,
+    //         },
+    //         answers: answers,
+    //         totalNumQuestions: questionsData.length,
+    //       },
+    //     });
+    //   })
+    //   .catch((error) => {
+    //     // error
+    //     console.log(error);
+    //   })
+    //   .then(() => {
+    //     // always executed
+    //   });
   }
 
   handleUserAnswer(userAnswer, questionId) {
@@ -168,8 +195,8 @@ class Content extends React.Component {
       });
     } else {
       // TODO: ENSURE ALL THE QUESTIONS WERE ANSWERED.
-        // IF NOT, THEN REDIRECT THE USER TO THE LOWEST QUESTION THEY HAVE NOT ANSWERED.
-        // ELSE, DISPLAY THE RESULTS PAGE.
+      // IF NOT, THEN REDIRECT THE USER TO THE LOWEST QUESTION THEY HAVE NOT ANSWERED.
+      // ELSE, DISPLAY THE RESULTS PAGE.
 
       // Finish the quiz, display the results.
       const numCorrect = tallyCorrectAnswers(questions);
@@ -194,7 +221,7 @@ class Content extends React.Component {
       results: null,
     });
     history.push({
-      pathname: '/'
+      pathname: "/",
     });
   }
 
@@ -211,11 +238,19 @@ class Content extends React.Component {
             <StartQuiz handleStartQuiz={this.handleStartQuiz} {...this.props} />
           </Route>
           <Route path="/question/:id">
-            <Question handleUserAnswer={this.handleUserAnswer}  resetQuiz={this.resetQuiz} {...this.props} />
+            <Question
+              handleUserAnswer={this.handleUserAnswer}
+              resetQuiz={this.resetQuiz}
+              {...this.props}
+            />
           </Route>
           {results && (
             <Route path="/results">
-              <Results quizResults={results} questions={questions} {...this.props} />
+              <Results
+                quizResults={results}
+                questions={questions}
+                {...this.props}
+              />
             </Route>
           )}
           <Route>Route not found</Route>
