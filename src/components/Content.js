@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, withRouter } from "react-router-dom";
+import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import axios from "axios";
 import querystring from "querystring";
 import dummyData from "../dummyData";
@@ -169,7 +169,7 @@ class Content extends React.Component {
     setTimeout(function () {
       // Handle moving on to the next question.
       that.moveToNextQuestion(questions, questionId);
-    }, 2000);
+    }, 1500);
 
     return questionAnswered.user_answer_data;
   }
@@ -258,7 +258,9 @@ class Content extends React.Component {
               />
             </Route>
           )}
-          <Route>Route not found</Route>
+          <Route>
+            <Redirect path="/"></Redirect>
+          </Route>
           {/* <Route path="/"></Route> */}
         </Switch>
       </div>

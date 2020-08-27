@@ -70,21 +70,16 @@
 
 .fadeIn-enter-active {
     opacity: 0;
-    transition: opacity 1000ms;
+    transition: opacity 750ms;
 }
 
 .fadeIn-exit {
     opacity: 1;
-    /* border: 5px solid blue; */
 }
 
 .fadeIn-exit-active {
     opacity: 1;
-    transition: opacity 1000ms;
-}
-
-.fadeIn-exit-done {
-    opacity: 1;
+    transition: opacity 750ms;
 }
 
 /* Extra small devices (portrait phones, less than 576px) */

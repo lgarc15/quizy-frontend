@@ -76,6 +76,7 @@ class Question extends React.Component {
   }
 
   render() {
+    const fadeOutInTimeout = 1500;
     const { showModal, answerBtnDisabled } = this.state;
     const {
       questionMeta,
@@ -88,7 +89,7 @@ class Question extends React.Component {
         <div id="quizProgress" className="fadeIn">
           <CSSTransition
             in={answerBtnDisabled}
-            timeout={2000}
+            timeout={fadeOutInTimeout}
             classNames="fadeIn"
           >
             <span>
@@ -100,7 +101,7 @@ class Question extends React.Component {
           <div id="quizQuestion">
             <CSSTransition
               in={answerBtnDisabled}
-              timeout={2000}
+              timeout={fadeOutInTimeout}
               classNames="fadeIn"
             >
               <h1>{he.decode(questionMeta.question)}</h1>
@@ -125,8 +126,11 @@ class Question extends React.Component {
                 >
                   <CSSTransition
                     in={answerBtnDisabled}
-                    timeout={2000}
+                    timeout={fadeOutInTimeout}
                     classNames="fadeIn"
+                    onExit={() => console.log('onExit')}
+                    onExiting={() => console.log('onExiting')}
+                    onExited={() => console.log('onExited')}
                   >
                     <span>{he.decode(answerMeta.answer)}</span>
                   </CSSTransition>
