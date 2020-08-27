@@ -1,7 +1,5 @@
 .bg-cl-1 {
-  /* background-color: rgb(238, 186, 91); */
-  /* background-color: rgb(255, 255, 255); */
-  background-color: #efefef;
+  background-color: rgb(239, 239, 239);
 }
 
 .bg-cl-2 {
@@ -13,7 +11,7 @@
 }
 
 .text-cl-1 {
-  color: rgb(238, 186, 91);
+  color: rgb(239, 239, 239);
 }
 
 .text-cl-2 {
@@ -22,8 +20,4 @@
 
 .text-cl-3 {
   color: rgb(96, 208, 125);
-}
-
-.text-cl-white {
-  color: rgb(255, 255, 255);
 }

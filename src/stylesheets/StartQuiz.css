@@ -1,5 +1,4 @@
 #startQuiz {
-    /* flex-basis: 65%; */
     text-align: center;
 }
 
@@ -20,19 +19,15 @@
 
 #quizSettingsForm input,
 #quizSettingsForm select {
-    /* border: 1px solid red !important; */
-    /* background-color: black; */
     border: 1px solid rgb(170, 170, 170) !important;
     flex-basis: 0 98%;
     height: 45px;
-    /* Make sure margin-bottom gets targetted for the child. */
     margin-bottom: 15px;
     margin-left: 0;
     margin-right: 0;
     font-size: 1.1em;
     border-radius: 5px;
     padding-left: 10px;
-    /* border: 1px solid grey; */
 }
 
 #quizSettingsForm select {
@@ -41,7 +36,6 @@
 }
 
 #quizSettingsFormSubmit {
-    /* border: 1px solid rgb(83, 184, 225); */
     border: 1px solid rgb(170, 170, 170);
     color: rgb(255, 255, 255);
     cursor: pointer;

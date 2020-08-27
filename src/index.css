@@ -5,8 +5,6 @@ html, body {
 
 body {
     margin: 0;
-    /* height: 100%; */
-    /* overflow: auto; */
     font-family: 'Trebuchet MS', 'Tahoma', 'Arial';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

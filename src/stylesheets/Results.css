@@ -8,17 +8,11 @@
 }
 
 #result-info-container {
-    /* border: 2px solid blue; */
     font-weight: 700;
-    /* overflow: auto; */
-    /* overflow: scroll; */
 }
 
 #result-info {
-    /* border: 1px solid green; */
     font-weight: 400;
-    /* overflow: auto; */
-    /* overflow: scroll; */
 }
 
 .result-item {

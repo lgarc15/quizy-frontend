@@ -8,7 +8,6 @@ import "../stylesheets/Content.css";
 import StartQuiz from "./StartQuiz";
 import Question from "./Question";
 import Results from "./Results";
-import { Button } from "react-bootstrap";
 
 // TODO: HAVE SMALL LITTLE LINKS TO PREVIOUSLY ANSWERED QUESTIONS AT THE BOTTOM.
 
@@ -40,17 +39,17 @@ function createAnswersArray(question) {
   return answers;
 }
 
-function findHighestAnsweredQuestion(questionsAnswered) {
-  // Find the highest index from the questions answered.
-  // That is the most number of questions the user has answered.
-  // Do not allow the user to go past that.
-}
+// function findHighestAnsweredQuestion(questionsAnswered) {
+//   // Find the highest index from the questions answered.
+//   // That is the most number of questions the user has answered.
+//   // Do not allow the user to go past that.
+// }
 
-function findHighestUnAnsweredQuestion(questionsAnswered) {
-  // Find the highest index from the questions not answered.
-  // That is the most number of questions the user has not answered.
-  // Use this to feed the next question.
-}
+// function findHighestUnAnsweredQuestion(questionsAnswered) {
+//   // Find the highest index from the questions not answered.
+//   // That is the most number of questions the user has not answered.
+//   // Use this to feed the next question.
+// }
 
 function tallyCorrectAnswers(questions) {
   let correct = 0;

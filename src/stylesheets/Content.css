@@ -13,7 +13,6 @@
 /* Extra small devices (portrait phones, less than 576px) */
 @media(max-width: 575.98px) {
     #content .main-content {
-        /* border: 1px solid green; */
         flex-basis: 98%;
         padding-top: 20px;
     }
@@ -32,10 +31,6 @@
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media(min-width: 1200px) {
-    #content .main-content {
-        /* border: 1px solid blue; */
-        /* flex-basis: 80%; */
-    }
 }
 
 /* // Extra large devices (large desktops) */
