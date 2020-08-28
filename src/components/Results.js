@@ -12,16 +12,44 @@ import "../stylesheets/Results.css";
 export default class Results extends React.Component {
   render() {
     const { quizResults, questions } = this.props;
-    const correctPercentage = (quizResults.numCorrect / quizResults.numTotalQuestions) * 100;
+    const correctPercentage =
+      (quizResults.numCorrect / quizResults.numTotalQuestions) * 100;
 
     return (
       <div className="main-content" id="result">
-        <h1 className="text-center" id="result-header">Quiz Results</h1>
+        <h1 className="text-center text-cl-2" id="result-header">
+          Quiz Results
+        </h1>
+
         <div id="result-summary">
-          <div>Total Questions: {quizResults.numTotalQuestions}</div>
-          <div>Your Score: {correctPercentage.toFixed(0)}%</div>
-          <div>Total Correct: {quizResults.numCorrect}</div>
+          <div>
+            <div className="result-summary-item">
+              <div>
+                <h1 className="text-cl-3">{quizResults.numTotalQuestions}</h1>
+                <p>Total Questions</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div>
+              <div className="result-summary-item">
+                <div>
+                  <h1 className="text-cl-3">{correctPercentage.toFixed(0)}%</h1>
+                  <p>Average Score</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="result-summary-item">
+              <div>
+                <h1 className="text-cl-3">{quizResults.numCorrect}</h1>
+                <p>Answer Correct</p>
+              </div>
+            </div>
+          </div>
         </div>
+
         <div id="result-info-container">
           <div id="result-info">
             {questions.map((question, index) => (
