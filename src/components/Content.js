@@ -2,7 +2,6 @@ import React from "react";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import axios from "axios";
 import querystring from "querystring";
-import dummyData from "../dummyData";
 
 import "../App.css";
 import "../stylesheets/Content.css";
@@ -83,72 +82,48 @@ class Content extends React.Component {
     // If there is, then prompt the user there is an active quiz and if the would like to continue.
     // If they do, then continue where they left off.
     // Else, let them start a new quiz.
-    const questionsData = dummyData.results;
-    // Attach and ID to the questions (ID starting with 1).
-    questionsData.map((item, index) => (item["id"] = index + 1));
-    // Find the first question's index.
-    const firstQuestion = findQuestionById(questionsData, 1);
-    // Save the state of the quiz game.
-    this.setState({
-      questions: questionsData,
-      currentQuestion: firstQuestion,
-    });
 
-    // Create an array based on the possible answers for the question.
-    const answers = createAnswersArray(firstQuestion);
+    axios
+      .get(
+        `https://opentdb.com/api.php?${querystring.stringify(queryStringsObj)}`
+      )
+      .then((response) => {
+        const questionsData = response.data.results;
 
-    this.props.history.push({
-      pathname: `/question/${firstQuestion.id}`,
-      state: {
-        questionMeta: {
-          id: firstQuestion.id,
-          question: firstQuestion.question,
-        },
-        answers: answers,
-        totalNumQuestions: questionsData.length,
-      },
-    });
-    // axios
-    //   .get(
-    //     `https://opentdb.com/api.php?${querystring.stringify(queryStringsObj)}`
-    //   )
-    //   .then((response) => {
-    //     const questionsData = response.data.results;
+        // Attach and ID to the questions (ID starting with 1).
+        questionsData.map((item, index) => (item["id"] = index + 1));
 
-    //     // Attach and ID to the questions (ID starting with 1).
-    //     questionsData.map((item, index) => (item["id"] = index + 1));
+        // Find the first question's index.
+        const firstQuestion = findQuestionById(questionsData, 1);
 
-    //     // Find the first question's index.
-    //     const firstQuestion = findQuestionById(questionsData, 1);
+        // Save the state of the quiz game.
+        this.setState({
+          questions: questionsData,
+          currentQuestion: firstQuestion,
+        });
 
-    //     // Save the state of the quiz game.
-    //     this.setState({
-    //       questions: questionsData,
-    //       currentQuestion: firstQuestion,
-    //     });
+        // Create an array based on the possible answers for the question.
+        const answers = createAnswersArray(firstQuestion);
 
-    //     // Create an array based on the possible answers for the question.
-    //     const answers = createAnswersArray(firstQuestion);
-
-    //     this.props.history.push({
-    //       pathname: `/question/${firstQuestion.id}`,
-    //       state: {
-    //         questionMeta: {
-    //           id: firstQuestion.id,
-    //           question: firstQuestion.question,
-    //         },
-    //         answers: answers,
-    //         totalNumQuestions: questionsData.length,
-    //       },
-    //     });
-    //   })
-    //   .catch((error) => {
-    //     // error
-    //     console.log(error);
-    //   })
-    //   .then(() => {
-    //     // always executed
-    //   });
+        this.props.history.push({
+          pathname: `/question/${firstQuestion.id}`,
+          state: {
+            questionMeta: {
+              id: firstQuestion.id,
+              question: firstQuestion.question,
+            },
+            answers: answers,
+            totalNumQuestions: questionsData.length,
+          },
+        });
+      })
+      .catch((error) => {
+        // error
+        console.log(error);
+      })
+      .then(() => {
+        // always executed
+      });
   }
 
   handleUserAnswer(userAnswer, questionId) {
