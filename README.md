@@ -8,7 +8,7 @@
         Think you know a lot about a wide variety of topics? Then Quizy is the right place for you. You will be tested on whatever subjects you want, and the best part is you get to choose your difficulty. If some of the questions are too hard for you, then tone the difficulty down and see your progress skyrocket!
         <br />
         <br />
-        <a href="quizy.lgarcia.us">View Demo</a>
+        <a href="https://quizy.lgarcia.us">View Demo</a>
         ·
         <a href="https://github.com/luisg5/quizy-frontend/issues">Report Bug</a>
         ·
