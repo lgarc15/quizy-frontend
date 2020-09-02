@@ -82,16 +82,16 @@ export default class Results extends React.Component {
                     <Card.Body>
                       <p>Possible Answers: </p>
                       <ul>
-                        <li>{question.correct_answer}</li>
+                        <li>{he.decode(question.correct_answer)}</li>
                         {question.incorrect_answers.map((answer, index) => (
-                          <li key={index}>{answer}</li>
+                          <li key={index}>{he.decode(answer)}</li>
                         ))}
                       </ul>
                       <p>
-                        Your Answer: {question.user_answer_data.user_answer}
+                        Your Answer: {he.decode(question.user_answer_data.user_answer)}
                       </p>
                       {!question.user_answer_data.user_correct && (
-                        <p>Correct Answer: {question.correct_answer}</p>
+                        <p>Correct Answer: {he.decode(question.correct_answer)}</p>
                       )}
                     </Card.Body>
                   </Accordion.Collapse>

@@ -72,17 +72,14 @@ class Question extends React.Component {
     const answer = e.target.value;
     const { questionMeta } = this.props.location.state;
 
-    const { user_correct, user_answer } = this.props.handleUserAnswer(
-      answer,
-      questionMeta.id
-    );
+    this.props.handleUserAnswer(answer, questionMeta.id);
   }
 
   render() {
-    if(!this.props.location.state) {
-      // State is not persisted after refresh. If this is the case, 
+    if (!this.props.location.state) {
+      // State is not persisted after refresh. If this is the case,
       // then the user will be redirected to the home page in `constructor`.
-      return (<div></div>);
+      return <div></div>;
     }
 
     const fadeOutInTimeout = 1000;

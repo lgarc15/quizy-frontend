@@ -24,6 +24,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy-production": "react-scripts build && scp -r ./build/* luis@45.77.68.35:/var/www/quizy.lgarcia.us/html",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
